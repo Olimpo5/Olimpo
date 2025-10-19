@@ -14,7 +14,6 @@ export default function MainStack(){
             <Stack.Navigator 
                 screenOptions={{headerShown:false}}
             >
-                <Stack.Screen name="SplashScreen" component={SplashScreen}></Stack.Screen>
                 <Stack.Screen name="LoginScreen" component={LoginScreen}></Stack.Screen>
                 <Stack.Screen name="RegisterScreen" component={RegisterScreen}></Stack.Screen>
                 <Stack.Screen name="HomeScreen" component={HomeScreen}></Stack.Screen>

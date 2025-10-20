@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 const {createNativeStackNavigator} = require("@react-navigation/native-stack")
 

@@ -1,13 +1,17 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import IntroImage from "../components/IntroImage"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import { Colors, Fonts } from "../constants/theme";
 import Titulo from "../components/Titulo";
+import { useState } from "react";
 
 
 
 export default function Onboarding(){
-    const navegacion = useNavigation() 
+    const route = useRoute()
+    const navegacion = useNavigation()
+    const [usuario, setUsuario] = useState(route.params?.usuario || {})
+
     return(
         <View style={estilos.container}>
             <IntroImage url={"https://img.freepik.com/foto-gratis/foto-blanco-negro-hombre-musculoso-usando-tiza-deportiva-antes-levantar-pesa-entrenamiento-pesas-gimnasio_637285-2505.jpg?semt=ais_hybrid&w=740&q=80"}></IntroImage>
@@ -19,7 +23,7 @@ export default function Onboarding(){
                 </Text>
             </View>
             <TouchableOpacity onPress={()=>{
-                navegacion.navigate("OnboardingNacimiento")
+                navegacion.navigate("OnboardingNacimiento", {usuario})
             }} style={estilos.btn}>
                 <Text style={estilos.btnText}>Comenzar</Text>
             </TouchableOpacity>

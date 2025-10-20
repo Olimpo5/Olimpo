@@ -2,12 +2,24 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "reac
 import Icon from "../../assets/ruler.png"
 import { Colors, Fonts } from "../constants/theme";
 import ProgressBar from "../components/ProgressBar";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
+import { useState } from "react";
 
 
 
 export default function OnboardingAltura(){
+    const route = useRoute()
     const navegacion = useNavigation()
+
+    const [usuario, setUsuario] = useState(route.params?.usuario || {})
+
+    // Funcion para actualizar un campo del objeto usuario
+    const actualizarCampo = (campo, valor) =>{
+        const nuevoUsuario = {...usuario, [campo]:valor}
+        setUsuario(nuevoUsuario)
+        console.log("Objeto actualizado en OnboardingAltura", nuevoUsuario)
+    }
+
     return(
         <View style={estilos.screen}>
             <ProgressBar bgcolor={Colors.secondary} completed={100}></ProgressBar>
@@ -17,12 +29,18 @@ export default function OnboardingAltura(){
 
                 {/* Formulario */}
                 <View style={estilos.formContainer}>
-                    <TextInput style={estilos.input} placeholder="Altura" placeholderTextColor={Colors.fontColor} keyboardType="numeric"></TextInput>
+                    <TextInput 
+                        style={estilos.input} 
+                        placeholder="Altura" 
+                        placeholderTextColor={Colors.fontColor} 
+                        keyboardType="numeric"
+                        onChangeText={(text) => actualizarCampo('altura', text)}></TextInput>
                 </View>
 
             </View>
              <TouchableOpacity onPress={()=>{
-                    navegacion.navigate("OnboardingEnd")
+                    console.log("Usuario final en OnboardingPeso: ", usuario)
+                    navegacion.navigate("OnboardingEnd", {usuario})
                 }} style={estilos.btn}>
                 <Text style={estilos.btnText}>Continuar</Text>
             </TouchableOpacity>

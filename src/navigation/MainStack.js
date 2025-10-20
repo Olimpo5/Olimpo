@@ -7,6 +7,7 @@ import Onboarding from "../screens/Onboarding";
 import OnboardingNacimiento from "../screens/OnboardingNacimiento";
 import OnboardingPeso from "../screens/OnboardingPeso";
 import OnboardingAltura from "../screens/OnboardingAltura";
+import OnboardingEnd from "../screens/OnboardingEnd";
 
 const {createNativeStackNavigator} = require("@react-navigation/native-stack")
 
@@ -25,6 +26,7 @@ export default function MainStack(){
                 <Stack.Screen name="OnboardingNacimiento" component={OnboardingNacimiento}></Stack.Screen>
                 <Stack.Screen name="OnboardingPeso" component={OnboardingPeso}></Stack.Screen>
                 <Stack.Screen name="OnboardingAltura" component={OnboardingAltura}></Stack.Screen>
+                <Stack.Screen name="OnboardingEnd" component={OnboardingEnd}></Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     )

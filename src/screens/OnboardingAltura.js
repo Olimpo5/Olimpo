@@ -22,7 +22,7 @@ export default function OnboardingAltura(){
 
             </View>
              <TouchableOpacity onPress={()=>{
-                    // navegacion.navigate("OnboardingNacimiento")
+                    navegacion.navigate("OnboardingEnd")
                 }} style={estilos.btn}>
                 <Text style={estilos.btnText}>Continuar</Text>
             </TouchableOpacity>

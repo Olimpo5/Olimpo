@@ -18,7 +18,7 @@ export default function RegisterScreen(){
             </View>
             <View style={styles.btnsContainer}>
                 <TouchableOpacity onPress={()=>{
-                        navegacion.navigate("HomeScreen")
+                        navegacion.navigate("Onboarding")
                     }} style={styles.btn}>
                     <Text style={styles.btnText}>Crear cuenta</Text>
                 </TouchableOpacity>

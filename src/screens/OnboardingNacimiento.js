@@ -17,9 +17,9 @@ export default function OnboardingNacimiento(){
 
                 {/* Formulario */}
                 <View style={estilos.formContainer}>
-                    <TextInput style={estilos.input} placeholder="Dia" placeholderTextColor={Colors.fontColor}></TextInput>
-                    <TextInput style={estilos.input} placeholder="Mes" placeholderTextColor={Colors.fontColor}></TextInput>
-                    <TextInput style={estilos.input} placeholder="Año" placeholderTextColor={Colors.fontColor}></TextInput>
+                    <TextInput style={estilos.input} placeholder="Dia" placeholderTextColor={Colors.fontColor} keyboardType="numeric"></TextInput>
+                    <TextInput style={estilos.input} placeholder="Mes" placeholderTextColor={Colors.fontColor} keyboardType="numeric"></TextInput>
+                    <TextInput style={estilos.input} placeholder="Año" placeholderTextColor={Colors.fontColor} keyboardType="numeric"></TextInput>
                 </View>
 
             </View>
@@ -67,7 +67,8 @@ const estilos = StyleSheet.create({
         width:100,
         height:50,
         textAlign:"center",
-        borderRadius:10
+        borderRadius:10,
+        color:Colors.fontColor
     },
      btn:{
         position:"absolute",

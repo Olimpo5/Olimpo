@@ -17,7 +17,7 @@ export default function OnboardingAltura(){
 
                 {/* Formulario */}
                 <View style={estilos.formContainer}>
-                    <TextInput style={estilos.input} placeholder="Altura" placeholderTextColor={Colors.fontColor} ></TextInput>
+                    <TextInput style={estilos.input} placeholder="Altura" placeholderTextColor={Colors.fontColor} keyboardType="numeric"></TextInput>
                 </View>
 
             </View>
@@ -66,7 +66,8 @@ const estilos = StyleSheet.create({
         width:100,
         height:50,
         textAlign:"center",
-        borderRadius:10
+        borderRadius:10,
+        color:Colors.fontColor
     },
      btn:{
         position:"absolute",

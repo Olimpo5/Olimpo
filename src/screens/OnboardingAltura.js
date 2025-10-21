@@ -1,11 +1,9 @@
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native";
 import Icon from "../../assets/ruler.png"
 import { Colors, Fonts } from "../constants/theme";
 import ProgressBar from "../components/ProgressBar";
 import { useNavigation, useRoute } from "@react-navigation/native"
 import { useState } from "react";
-
-
 
 export default function OnboardingAltura(){
     const route = useRoute()
@@ -13,36 +11,71 @@ export default function OnboardingAltura(){
 
     const [usuario, setUsuario] = useState(route.params?.usuario || {})
 
-    // Funcion para actualizar un campo del objeto usuario
-    const actualizarCampo = (campo, valor) =>{
-        const nuevoUsuario = {...usuario, [campo]:valor}
+    // Función para actualizar un campo del objeto usuario
+    const actualizarCampo = (campo, valor) => {
+        const nuevoUsuario = { ...usuario, [campo]: valor }
         setUsuario(nuevoUsuario)
-        console.log("Objeto actualizado en OnboardingAltura", nuevoUsuario)
+        console.log("Objeto actualizado en OnboardingAltura:", nuevoUsuario)
     }
 
-    return(
+    // 👇 Función para enviar el usuario al endpoint
+    const crearUsuario = async () => {
+        try {
+            console.log("Enviando usuario al servidor:", usuario)
+
+            // En la ip colocamos el la ip publica de ec2
+            const respuesta = await fetch("http://3.142.79.163:8000/usuarios", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(usuario),
+            })
+
+            if (!respuesta.ok) {
+                const errorData = await respuesta.text()
+                console.error("Error al crear usuario:", errorData)
+                Alert.alert("Error", "No se pudo crear el usuario")
+                return
+            }
+
+            const data = await respuesta.json()
+            console.log("Usuario creado exitosamente:", data)
+            Alert.alert("Éxito", "Usuario registrado correctamente")
+
+            // Navegar a la siguiente pantalla o pantalla final
+            navegacion.navigate("OnboardingEnd", { usuario: data })
+        } catch (error) {
+            console.error("Error en la solicitud:", error)
+            Alert.alert("Error de conexión", "No se pudo conectar con el servidor")
+        }
+    }
+
+    return (
         <View style={estilos.screen}>
-            <ProgressBar bgcolor={Colors.secondary} completed={100}></ProgressBar>
+            <ProgressBar bgcolor={Colors.secondary} completed={100} />
             <View style={estilos.onboardingContainer}>
-                <Image style={estilos.imagen} source={Icon}></Image>
-                <Text style={estilos.texto}>Cual es tu altura?</Text>
+                <Image style={estilos.imagen} source={Icon} />
+                <Text style={estilos.texto}>¿Cuál es tu altura?</Text>
 
                 {/* Formulario */}
                 <View style={estilos.formContainer}>
-                    <TextInput 
-                        style={estilos.input} 
-                        placeholder="Altura" 
-                        placeholderTextColor={Colors.fontColor} 
+                    <TextInput
+                        style={estilos.input}
+                        placeholder="Altura (cm)"
+                        placeholderTextColor={Colors.fontColor}
                         keyboardType="numeric"
-                        onChangeText={(text) => actualizarCampo('altura', text)}></TextInput>
+                        value={usuario.altura}
+                        onChangeText={(text) => actualizarCampo("altura", text)}
+                    />
                 </View>
-
             </View>
-             <TouchableOpacity onPress={()=>{
-                    console.log("Usuario final en OnboardingPeso: ", usuario)
-                    navegacion.navigate("OnboardingEnd", {usuario})
-                }} style={estilos.btn}>
-                <Text style={estilos.btnText}>Continuar</Text>
+
+            <TouchableOpacity
+                onPress={crearUsuario}
+                style={estilos.btn}
+            >
+                <Text style={estilos.btnText}>Crear cuenta</Text>
             </TouchableOpacity>
         </View>
     )
@@ -87,7 +120,7 @@ const estilos = StyleSheet.create({
         borderRadius:10,
         color:Colors.fontColor
     },
-     btn:{
+    btn:{
         position:"absolute",
         bottom:50,
         backgroundColor:Colors.secondary,

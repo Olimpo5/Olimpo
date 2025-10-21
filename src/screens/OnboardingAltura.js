@@ -24,7 +24,7 @@ export default function OnboardingAltura(){
             console.log("Enviando usuario al servidor:", usuario)
 
             // En la ip colocamos el la ip publica de ec2
-            const respuesta = await fetch("http://3.15.19.46:8000/usuarios", {
+            const respuesta = await fetch("http://10.0.2.2:8000/usuarios", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

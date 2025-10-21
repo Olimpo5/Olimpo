@@ -2,12 +2,24 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "reac
 import Icon from "../../assets/bascula.png"
 import { Colors, Fonts } from "../constants/theme";
 import ProgressBar from "../components/ProgressBar";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
+import { useState } from "react";
 
 
 
 export default function OnboardingPeso(){
+    const route = useRoute()
     const navegacion = useNavigation()
+
+    const [usuario, setUsuario] = useState(route.params?.usuario || {})
+
+    //Funcion para actualizar un ccampo del objeto usuario
+    const actualizarCampo = (campo, valor)=>{
+        const nuevoUsuario = {...usuario, [campo]:valor}
+        setUsuario(nuevoUsuario)
+        console.log("Objeto actualizado en OnboardingPeso", nuevoUsuario)
+    }
+
     return(
         <View style={estilos.screen}>
             <ProgressBar bgcolor={Colors.secondary} completed={66.6}></ProgressBar>
@@ -17,12 +29,20 @@ export default function OnboardingPeso(){
 
                 {/* Formulario */}
                 <View style={estilos.formContainer}>
-                    <TextInput style={estilos.input} placeholder="Peso" placeholderTextColor={Colors.fontColor} ></TextInput>
+                    <TextInput 
+                        style={estilos.input} 
+                        placeholder="Peso" 
+                        placeholderTextColor={Colors.fontColor} 
+                        keyboardType="numeric"
+                        onChangeText={(text) => actualizarCampo('peso', text)}>
+
+                    </TextInput>
                 </View>
 
             </View>
              <TouchableOpacity onPress={()=>{
-                    navegacion.navigate("OnboardingAltura")
+                    console.log("Usuario final en OnboardingPeso:", usuario)
+                    navegacion.navigate("OnboardingAltura", {usuario})
                 }} style={estilos.btn}>
                 <Text style={estilos.btnText}>Continuar</Text>
             </TouchableOpacity>
@@ -66,7 +86,8 @@ const estilos = StyleSheet.create({
         width:100,
         height:50,
         textAlign:"center",
-        borderRadius:10
+        borderRadius:10,
+        color:Colors.fontColor
     },
      btn:{
         position:"absolute",

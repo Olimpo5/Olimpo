@@ -3,22 +3,67 @@ import { useNavigation } from "@react-navigation/native"
 import { Colors } from "../constants/theme"
 import IntroImage from "../components/IntroImage"
 import Titulo from "../components/Titulo"
+import { useState } from "react"
 
 export default function RegisterScreen(){
     const navegacion = useNavigation()
+
+    // Creando objeto base que servira como plantilla para hacer POST a usuarios/
+    const [usuario, setUsuario] = useState({
+        correo: '',
+        password: '',
+        nombre: '',
+        apellido: '',
+        fecha_nacimiento: '',
+        peso: '',
+        altura: '',
+        foto_perfil: '',
+        objetivo: ''
+    })
+
+    // Funcion para actualizar un campo del objeto usuario
+    const actualizarCampo = (campo, valor) =>{
+        const nuevoUsuario = { ...usuario, [campo]:valor}
+        setUsuario(nuevoUsuario)
+        console.log("Objeto actualizado: ", nuevoUsuario)
+    }
+
+
     return(
         <View style={styles.container}>
             <IntroImage url={"https://img.freepik.com/fotos-premium/culturista-preparandose-mentalmente-antes-levantar-pesas-pesadas_754108-1133.jpg"}></IntroImage>
             <Titulo titulo={"Crear cuenta"}></Titulo>
             <View style={styles.formContainer}>
-                <TextInput style={styles.input} placeholder="Primer nombre" placeholderTextColor={Colors.fontColor}></TextInput>
-                <TextInput style={styles.input} placeholder="Segundo nombre" placeholderTextColor={Colors.fontColor}></TextInput>
-                <TextInput style={styles.input} placeholder="Correo electronico" placeholderTextColor={Colors.fontColor}></TextInput>
-                <TextInput style={styles.input} placeholder="Contraseña" placeholderTextColor={Colors.fontColor} secureTextEntry={true} ></TextInput>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Primer nombre" 
+                    placeholderTextColor={Colors.fontColor}
+                    onChangeText={(text) => actualizarCampo('nombre', text)}>
+                </TextInput>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Segundo nombre" 
+                    placeholderTextColor={Colors.fontColor}
+                    onChangeText={(text) => actualizarCampo('apellido', text)}>
+                </TextInput>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Correo electronico" 
+                    placeholderTextColor={Colors.fontColor}
+                    onChangeText={(text)=>actualizarCampo('correo', text)}
+                >
+                </TextInput>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Contraseña" 
+                    placeholderTextColor={Colors.fontColor} 
+                    secureTextEntry={true}
+                    onChangeText={(text) => actualizarCampo('password', text)}></TextInput>
             </View>
             <View style={styles.btnsContainer}>
                 <TouchableOpacity onPress={()=>{
-                        navegacion.navigate("Onboarding")
+                        console.log("Usuario final en RegisterScreen:", usuario)
+                        navegacion.navigate("Onboarding", {usuario})
                     }} style={styles.btn}>
                     <Text style={styles.btnText}>Crear cuenta</Text>
                 </TouchableOpacity>
@@ -56,7 +101,8 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: Colors.primary,
         borderRadius: 10,
-        padding:10
+        padding:10,
+        color: Colors.fontColor
     },
     btnsContainer:{
         width: "90%",

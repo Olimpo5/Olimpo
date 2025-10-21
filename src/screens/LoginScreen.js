@@ -56,12 +56,13 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: Colors.primary,
         borderRadius: 10,
-        padding:10
+        padding:10,
+        color:Colors.fontColor
     },
     btnsContainer:{
         width: "90%",
         alignSelf:"center",
-        display:"flex",
+        // display:"flex",
         gap:15
     },
     btn:{

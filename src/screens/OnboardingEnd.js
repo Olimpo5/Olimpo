@@ -1,9 +1,23 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Colors, Fonts } from "../constants/theme";
 import Icon from "../../assets/bicep.png"
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useEffect } from "react";
 
 
 export default function OnboardingEnd(){
+    const navigation = useNavigation()
+    const route = useRoute();
+    const usuario = route.params?.usuario;
+
+    useEffect(()=>{
+        const timer = setTimeout(()=>{
+            navigation.navigate("HomeScreen", {usuario})
+        }, 3000)
+
+        return () => clearTimeout(timer)
+    }, [])
+
     return(
         <View style={estilos.screen}> 
 

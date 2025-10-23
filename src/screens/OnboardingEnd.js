@@ -12,7 +12,7 @@ export default function OnboardingEnd(){
 
     useEffect(()=>{
         const timer = setTimeout(()=>{
-            navigation.navigate("HomeScreen", {usuario})
+            navigation.navigate("TabNavigator", {usuario})
         }, 3000)
 
         return () => clearTimeout(timer)

@@ -9,6 +9,16 @@ import OnboardingPeso from "../screens/OnboardingPeso";
 import OnboardingAltura from "../screens/OnboardingAltura";
 import OnboardingEnd from "../screens/OnboardingEnd";
 
+//Creando un tab navigation
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import StatScreen from "../screens/StatScreen";
+import WorkoutScreen from "../screens/WorkoutScreen";
+import ChatScreen from "../screens/ChatScreen";
+import TabNavigator from "./TabNavigator";
+
+// const Tab = createBottomTabNavigator()
+
+
 const {createNativeStackNavigator} = require("@react-navigation/native-stack")
 
 const Stack = createNativeStackNavigator()
@@ -27,7 +37,40 @@ export default function MainStack(){
                 <Stack.Screen name="OnboardingPeso" component={OnboardingPeso}></Stack.Screen>
                 <Stack.Screen name="OnboardingAltura" component={OnboardingAltura}></Stack.Screen>
                 <Stack.Screen name="OnboardingEnd" component={OnboardingEnd}></Stack.Screen>
-            </Stack.Navigator>
+                <Stack.Screen name="TabNavigator" component={TabNavigator}></Stack.Screen>
+           </Stack.Navigator>
         </NavigationContainer>
     )
 }
+
+
+// function TabNavigator(){
+//     // 1. Home
+//     // 2. Stats
+//     // 3. Workouts
+//     // 4. Chat
+//     return(
+//         <Tab.Navigator initialRouteName="HomeScreen">
+//             <Tab.Screen 
+//                 name="HomeScreen" 
+//                 component={HomeScreen} 
+//                 options={{title: 'Home'}}
+//             /> 
+//             <Tab.Screen 
+//                 name="StatScreen" 
+//                 component={StatScreen} 
+//                 options={{title: 'Stats'}}
+//             /> 
+//             <Tab.Screen 
+//                 name="WorkoutScreen" 
+//                 component={WorkoutScreen} 
+//                 options={{title: 'Workouts'}}
+//             />      
+//             <Tab.Screen 
+//                 name="ChatScreen" 
+//                 component={ChatScreen} 
+//                 options={{title: 'Chat'}}
+//             />       
+//         </Tab.Navigator>
+//     )
+// }

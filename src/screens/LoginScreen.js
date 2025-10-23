@@ -31,7 +31,7 @@ export default function LoginScreen() {
           `Bienvenido ${usuarioEncontrado.nombre} ${usuarioEncontrado.apellido}`
         );
         // Enviar al usuario a la HomeScreen con los datos del usuario
-        navegacion.navigate("HomeScreen", { usuario: usuarioEncontrado });
+        navegacion.navigate("TabNavigator", { usuario: usuarioEncontrado });
       } else {
         Alert.alert("Error", "Correo o contraseña incorrectos");
       }

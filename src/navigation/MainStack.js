@@ -15,6 +15,9 @@ import StatScreen from "../screens/StatScreen";
 import WorkoutScreen from "../screens/WorkoutScreen";
 import ChatScreen from "../screens/ChatScreen";
 import TabNavigator from "./TabNavigator";
+import RoutineCreateGoal from "../screens/RoutineCreateGoal";
+import RoutineCreateFrequency from "../screens/RoutineCreateFrequency";
+import RoutineCreate from "../screens/RoutineCreate";
 
 // const Tab = createBottomTabNavigator()
 
@@ -38,6 +41,9 @@ export default function MainStack(){
                 <Stack.Screen name="OnboardingAltura" component={OnboardingAltura}></Stack.Screen>
                 <Stack.Screen name="OnboardingEnd" component={OnboardingEnd}></Stack.Screen>
                 <Stack.Screen name="TabNavigator" component={TabNavigator}></Stack.Screen>
+                <Stack.Screen name="RoutineCreateGoal" component={RoutineCreateGoal}></Stack.Screen>
+                <Stack.Screen name="RoutineCreateFrequency" component={RoutineCreateFrequency}></Stack.Screen>
+                <Stack.Screen name="RoutineCreate" component={RoutineCreate}></Stack.Screen>
            </Stack.Navigator>
         </NavigationContainer>
     )

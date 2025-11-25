@@ -10,10 +10,10 @@ export default function ChatScreen() {
   const scrollViewRef = useRef();
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://10.0.2.2:3000/ws/chat");
+    ws.current = new WebSocket("ws://10.0.2.2:8000/ws/chat");
 
     ws.current.onopen = () => {
-      appendMessage("Conectado al bot", "bot");
+      appendMessage("Hola, en que puedo ayudarte", "bot");
     };
 
     ws.current.onmessage = (event) => {
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
   bot: { backgroundColor: Colors.primary, alignSelf: "flex-start" },
   userText: { color: Colors.fontColor},
   botText: { color: Colors.fontColor },
-  inputContainer: { flexDirection: "row", padding: 10, borderTopWidth: 1, borderColor: "#ddd", color:Colors.fontColor},
-  input: { flex: 1, borderWidth: 1, borderColor: "#ccc", borderRadius: 5, paddingHorizontal: 10, color:Colors.fontColor },
+  inputContainer: { flexDirection: "row", padding: 10, color:Colors.fontColor},
+  input: { flex: 1, borderWidth: 1, backgroundColor:Colors.primary, borderRadius: 5, paddingHorizontal: 10, color:Colors.fontColor },
   button: { marginLeft: 5, backgroundColor:Colors.secondary, borderRadius: 5, justifyContent: "center", paddingHorizontal: 15 },
   buttonText: { color: "white" },
 });

@@ -1,10 +1,13 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Colors, Fonts } from "../constants/theme";
 import Body from "../../assets/body.png"
 import CircleStat from "../../assets/circlestat.png";
+import { useState } from "react";
 
 export default function HomeScreen(){
+    const navegacion = useNavigation()
+
     return(
         <View style={estilos.container}>
             {/* Header con imagen y mensaje al usuario */}
@@ -13,23 +16,12 @@ export default function HomeScreen(){
                 <Text style={estilos.txtusuario}>Hola usuario</Text>
             </View>
 
-            {/* Dashboard Inicial SIN DATOS */}
-            <View style={estilos.dashboardContainer}>
-                <Image style={estilos.bodyModel} source={Body}></Image>
-                <View style={estilos.dataContainer}>
-                    <View style={estilos.rutinaContainer}>
-                        <Text style={estilos.txtRutina}>Rutina de hoy</Text>
-                    </View>
-                    <Image style={estilos.circleStat} source={CircleStat}></Image>
-                    {/* Por ahora esto una imagen, en implementaciones futuras sera un grafico  */}
-
-                </View>
-            </View>
-
             <View style={estilos.crearRutina}>
                 <Image style={estilos.crearRutinaImagen} source={{uri:"https://media.istockphoto.com/id/1503228140/photo/woman-doing-push-ups-in-the-gym-strength-training.jpg?s=612x612&w=0&k=20&c=ZDUwwKr2E1FWZKv9jutOxJY02Yob1sdLtf0vPOc1wow="}}></Image>
                 <TouchableOpacity style={estilos.btnCrear}>
-                    <Text style={estilos.btnCreartxt}>Crear rutina</Text>
+                    <Text style={estilos.btnCreartxt} onPress={()=>{
+                        navegacion.navigate("RoutineCreateGoal")
+                    }}>Crear rutina</Text>
                 </TouchableOpacity>
             </View>
 
@@ -61,43 +53,6 @@ const estilos = StyleSheet.create({
         width:50,
         height:50,
         borderRadius:100
-    },
-    dashboardContainer:{
-        display:"flex",
-        flexDirection:"row",
-        width:"90%",
-        alignSelf:"center",
-        justifyContent:"space-between"
-    },
-    bodyModel:{
-        width:154,
-        height:273
-    },
-    dataContainer:{
-        width:"50%",
-        display:"flex",
-        gap:15,
-        alignSelf:"center",
-    },
-    rutinaContainer:{
-        height:100,
-        width:"100%",
-        backgroundColor:Colors.primary,
-        display:"flex",
-        justifyContent:"center",
-        borderRadius:10
-    },
-    txtRutina:{
-        textAlign:"center",
-        alignSelf:"center",
-        fontSize:15,
-        fontWeight: Fonts.bold,
-        color: Colors.accent
-    },
-    circleStat:{
-        width:160,
-        height:160,
-        alignSelf:"center",
     },
     crearRutina:{
         width:"90%",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 // import Colors from "../constants/Colors";
 import { Colors } from "../constants/theme"
 import IntroImage from "../components/IntroImage";
@@ -26,10 +26,10 @@ export default function LoginScreen() {
       );
 
       if (usuarioEncontrado) {
-        Alert.alert(
-          "Inicio de sesión exitosa",
-          `Bienvenido ${usuarioEncontrado.nombre} ${usuarioEncontrado.apellido}`
-        );
+        // Alert.alert(
+        //   "Inicio de sesión exitosa",
+        //   `Bienvenido ${usuarioEncontrado.nombre} ${usuarioEncontrado.apellido}`
+        // );
         // Enviar al usuario a la HomeScreen con los datos del usuario
         navegacion.navigate("TabNavigator", { usuario: usuarioEncontrado });
       } else {

@@ -14,6 +14,102 @@ import Icon from "../../assets/bicep.png";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 
+// =========================================================================
+// ARRAYS DE IMÁGENES POR DÍA (9 imágenes cada uno)
+// =========================================================================
+const Lunes = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+const Martes = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+const Miercoles = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+const Jueves = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+
+const Viernes = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+
+const Sabado = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+
+const Domingo = [
+    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1549476464-37392f717541?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzJ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzZ8fGd5bXxlbnwwfHwwfHx8MA%3D%3D"
+];
+
+// Objeto de mapeo para enlazar la clave del día con el array de imágenes.
+const IMAGENES_POR_DIA = {
+    L: Lunes,
+    M: Martes,
+    M2: Miercoles,
+    J: Jueves,
+    V: Viernes,
+    S: Sabado,
+    D: Domingo,
+};
+// =========================================================================
+
 export default function RoutineCreate(){
     const navegacion = useNavigation();
     const route = useRoute();
@@ -32,38 +128,8 @@ export default function RoutineCreate(){
         { key: "D", label: "D", name: "Domingo" }
     ];
 
-    // Rangos de imágenes por día
-    const rangos = {
-        L: [0, 3],
-        M: [4, 7],
-        M2: [8, 11],
-        J: [12, 15],
-        V: [16, 19],
-        S: [0, 3],
-        D: [4, 7],
-    };
-
-    const rutinasImg = [
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1550345332-09e3ac987658",
-        "https://images.pexels.com/photos/136404/pexels-photo-136404.jpeg",
-        "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg",
-        "https://images.unsplash.com/photo-1550345332-09e3ac987658",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1550345332-09e3ac987658",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.pexels.com/photos/136404/pexels-photo-136404.jpeg",
-        "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5",
-        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5"
-    ];
-
+    // ELIMINAMOS 'rangos' y 'rutinasImg' ya que ahora usamos el mapeo directo
+    
     // Día seleccionado para mostrar ejercicios
     const [diaSeleccionado, setDiaSeleccionado] = useState(null);
 
@@ -101,13 +167,16 @@ export default function RoutineCreate(){
         }
     };
 
-    // Obtener imágenes por día
+    // =========================================================================
+    // FUNCIÓN ACTUALIZADA: Retorna el array de imágenes directamente por clave.
+    // =========================================================================
     const getImagenesFiltradas = () => {
         if (!diaSeleccionado) return [];
-
-        const [inicio, fin] = rangos[diaSeleccionado];
-        return rutinasImg.slice(inicio, fin + 1);
+        
+        // Usamos el objeto de mapeo IMAGENES_POR_DIA
+        return IMAGENES_POR_DIA[diaSeleccionado] || [];
     };
+    // =========================================================================
 
     // Seleccionar / deseleccionar imagen
     const toggleSeleccion = (img) => {
@@ -123,7 +192,7 @@ export default function RoutineCreate(){
         }
 
         // Si no está seleccionado → agregarlo (máximo 5)
-        if (seleccionadoActual.length < 5) {
+        if (seleccionadoActual.length < 9) {
             setSelecciones({
                 ...selecciones,
                 [diaSeleccionado]: [...seleccionadoActual, img]
@@ -365,3 +434,5 @@ const estilos = StyleSheet.create({
         color: Colors.fontColor
     }
 });
+
+

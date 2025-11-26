@@ -20,6 +20,7 @@ import RoutineCreateFrequency from "../screens/RoutineCreateFrequency";
 import RoutineCreate from "../screens/RoutineCreate";
 import TrainingLoadScreen from "../screens/TrainingLoadScreen";
 import TrainingScreen from "../screens/TrainingScreen";
+import FinishTrainingLoadScreen from "../screens/FinishTrainingLoadScreen";
 
 // const Tab = createBottomTabNavigator()
 
@@ -48,6 +49,7 @@ export default function MainStack(){
                 <Stack.Screen name="RoutineCreate" component={RoutineCreate}></Stack.Screen>
                 <Stack.Screen name="TrainingLoadScreen" component={TrainingLoadScreen}></Stack.Screen>
                 <Stack.Screen name="TrainingScreen" component={TrainingScreen}></Stack.Screen>
+                <Stack.Screen name="FinishTrainingLoadScreen" component={FinishTrainingLoadScreen}></Stack.Screen>
            </Stack.Navigator>
         </NavigationContainer>
     )

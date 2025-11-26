@@ -16,8 +16,9 @@ export default function HomeScreen(){
     const navegacion = useNavigation();
     const route = useRoute();
     
-    // Obtenemos la rutina desde los params (si existe)
+    // Obtenemos la rutina y sessionData desde los params (si existen)
     const [rutinaGuardada, setRutinaGuardada] = useState(route.params?.rutina || null);
+    const [sessionData, setSessionData] = useState(route.params?.sessionData || null);
     const [diaSeleccionado, setDiaSeleccionado] = useState(null);
 
     const dias = [
@@ -30,7 +31,7 @@ export default function HomeScreen(){
         { key: "D", label: "D", name: "Domingo" }
     ];
 
-    // Actualizar rutina cuando la pantalla recibe foco
+    // Actualizar rutina y sessionData cuando la pantalla recibe foco
     useFocusEffect(
         useCallback(() => {
             if (route.params?.rutina) {
@@ -40,7 +41,11 @@ export default function HomeScreen(){
                     setDiaSeleccionado(route.params.rutina.selectedDays[0].key);
                 }
             }
-        }, [route.params?.rutina])
+            
+            if (route.params?.sessionData) {
+                setSessionData(route.params.sessionData);
+            }
+        }, [route.params?.rutina, route.params?.sessionData])
     );
 
     // Verificar si un día está habilitado en la rutina
@@ -63,7 +68,7 @@ export default function HomeScreen(){
         }
     };
 
-    // SI NO HAY RUTINA - Vista original
+    // ESTADO 1: NO HAY RUTINA - Usuario nuevo
     if (!rutinaGuardada) {
         return(
             <View style={estilos.container}>
@@ -93,7 +98,133 @@ export default function HomeScreen(){
         );
     }
 
-    // SI HAY RUTINA - Vista con días y ejercicios
+    // ESTADO 3: RUTINA COMPLETADA - Mostrar estadísticas
+    if (sessionData) {
+        return(
+            <View style={estilos.container}>
+                {/* Header con imagen y mensaje al usuario */}
+                <View style={estilos.header}>
+                    <Image 
+                        style={estilos.image} 
+                        source={{uri: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000"}}
+                    />
+                    <Text style={estilos.txtusuario}>Hola Arturo</Text>
+                </View>
+
+                {/* Imagen de entrenamiento completado */}
+                <View style={estilos.rutinaContainer}>
+                    <Image 
+                        style={estilos.crearRutinaImagen} 
+                        source={{uri:"https://media.istockphoto.com/id/485298294/photo/gym-kettle-bell-with-chalk-and-hands.jpg?s=612x612&w=0&k=20&c=JwF8_VlohsAgsoSQsvdMZhxVW03-TmbtIiQk75yVQJQ="}}
+                    />
+
+                    {/* Tarjeta de estadísticas del entrenamiento */}
+                    <View style={estilos.statsCard}>
+                        {/* Mensaje de felicitación */}
+                        <Text style={estilos.statsMessage}>{sessionData.mensaje}</Text>
+
+                        {/* Grid de estadísticas */}
+                        <View style={estilos.statsGrid}>
+                            {/* Duración */}
+                            <View style={estilos.statItem}>
+                                <Text style={estilos.statValue}>{sessionData.duracionMinutos} min</Text>
+                                <Text style={estilos.statLabel}>Duración</Text>
+                            </View>
+
+                            {/* Porcentaje completado */}
+                            <View style={estilos.statItem}>
+                                <Text style={estilos.statValue}>{sessionData.porcentajeCompletado}%</Text>
+                                <Text style={estilos.statLabel}>Completado</Text>
+                            </View>
+
+                            {/* Enfoque del entrenamiento */}
+                            <View style={estilos.statItem}>
+                                <Text style={estilos.statValue}>{sessionData.enfoqueEntrenamiento}</Text>
+                                <Text style={estilos.statLabel}>Enfoque</Text>
+                            </View>
+                        </View>
+
+                        {/* Información adicional */}
+                        <View style={estilos.additionalInfo}>
+                            <Text style={estilos.infoText}>
+                                {sessionData.ejerciciosCompletados} de {sessionData.ejerciciosTotales} ejercicios
+                            </Text>
+                            <Text style={estilos.infoText}>
+                                {sessionData.dia} • {sessionData.fecha}
+                            </Text>
+                        </View>
+                    </View>
+
+                    {/* Botón para entrenar de nuevo */}
+                    <TouchableOpacity 
+                        style={estilos.btnCrear}
+                        onPress={() => {
+                            // Limpiar sessionData y volver al estado 2
+                            setSessionData(null);
+                            navegacion.setParams({ sessionData: null });
+                        }}
+                    >
+                        <Text style={estilos.btnCreartxt}>Entrenar de nuevo</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Botones de días de la semana */}
+                <View style={estilos.diasContainer}>
+                    {dias.map((dia, index) => {
+                        const isHabilitado = isDiaHabilitado(dia.key);
+                        const isSeleccionado = diaSeleccionado === dia.key;
+
+                        return (
+                            <Pressable
+                                key={index}
+                                onPress={() => handleDiaPress(dia.key)}
+                                disabled={!isHabilitado}
+                                style={[
+                                    estilos.botonDia,
+                                    isSeleccionado && isHabilitado && { backgroundColor: Colors.secondary },
+                                    !isHabilitado && { opacity: 0.3, backgroundColor: "#444" }
+                                ]}
+                            >
+                                <Text 
+                                    style={[
+                                        estilos.botonDiaTxt,
+                                        isSeleccionado && { color: "#000" }
+                                    ]}
+                                >
+                                    {dia.label}
+                                </Text>
+                            </Pressable>
+                        );
+                    })}
+                </View>
+
+                {/* Grid de ejercicios del día seleccionado */}
+                <ScrollView style={estilos.ejerciciosScroll}>
+                    <View style={estilos.ejerciciosGrid}>
+                        {getEjerciciosDia().map((ejercicio, index) => (
+                            <TouchableOpacity 
+                                key={index}
+                                style={estilos.ejercicioCard}
+                            >
+                                <Image 
+                                    style={estilos.ejercicioImagen} 
+                                    source={{ uri: ejercicio }} 
+                                />
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+
+                    {getEjerciciosDia().length === 0 && diaSeleccionado && (
+                        <Text style={estilos.noEjerciciosText}>
+                            No hay ejercicios para este día
+                        </Text>
+                    )}
+                </ScrollView>
+            </View>
+        );
+    }
+
+    // ESTADO 2: HAY RUTINA PERO NO COMPLETADA - Listo para entrenar
     return(
         <View style={estilos.container}>
             {/* Header con imagen y mensaje al usuario */}
@@ -112,10 +243,10 @@ export default function HomeScreen(){
                     source={{uri:"https://media.istockphoto.com/id/485298294/photo/gym-kettle-bell-with-chalk-and-hands.jpg?s=612x612&w=0&k=20&c=JwF8_VlohsAgsoSQsvdMZhxVW03-TmbtIiQk75yVQJQ="}}
                 />
 
-                {/* Botón reciclado - ahora para editar/crear nueva rutina */}
+                {/* Botón para empezar rutina */}
                 <TouchableOpacity 
                     style={estilos.btnCrear}
-                    onPress={()=>{
+                    onPress={() => {
                         navegacion.navigate("TrainingLoadScreen", {rutina: rutinaGuardada})
                     }}
                 >
@@ -236,6 +367,48 @@ const estilos = StyleSheet.create({
         fontSize:15,
         fontWeight:Fonts.bold
     },
+    // Estilos para la tarjeta de estadísticas (Estado 3)
+    statsCard:{
+        backgroundColor: Colors.primary,
+        borderRadius: 15,
+        padding: 20,
+        gap: 20
+    },
+    statsMessage:{
+        color: Colors.secondary,
+        fontSize: 24,
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    statsGrid:{
+        flexDirection: "row",
+        justifyContent: "space-around",
+        gap: 10
+    },
+    statItem:{
+        alignItems: "center",
+        gap: 5
+    },
+    statValue:{
+        color: Colors.fontColor,
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    statLabel:{
+        color: Colors.fontColor,
+        fontSize: 12,
+        opacity: 0.7
+    },
+    additionalInfo:{
+        gap: 5,
+        alignItems: "center"
+    },
+    infoText:{
+        color: Colors.fontColor,
+        fontSize: 14,
+        opacity: 0.8
+    },
+    // Estilos existentes
     diasContainer:{
         flexDirection:"row",
         justifyContent:"center",

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   labelStyles: {
-    color: 'white',
+    color: Colors.secondary,
     fontWeight: 'bold',
     textAlign: 'center',
   },

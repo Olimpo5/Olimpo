@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import IntroImage from "../components/IntroImage";
 import { Colors, Fonts } from "../constants/theme";
 import ProgressBar from "../components/ProgressBar";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function TrainingScreen(){
+    const navegacion = useNavigation()
     const route = useRoute();
     
     // Recibir la rutina desde TrainingLoadScreen
     const { rutina } = route.params;
     
-    // Obtener todos los ejercicios (puedes elegir el primer día o agregar lógica para seleccionar día)
+    // Obtener todos los ejercicios
     const exercises = rutina.selectedDays.length > 0 ? rutina.selectedDays[0].exercises : [];
     const nombreDia = rutina.selectedDays.length > 0 ? rutina.selectedDays[0].name : "Día";
     
-    // Estado para controlar qué ejercicios están completados (array de booleanos)
+    // Estado para controlar qué ejercicios están completados
     const [exercisesCompleted, setExercisesCompleted] = useState(
         new Array(exercises.length).fill(false)
     );
+
+    // Estado para tracking de tiempo
+    const [startTime] = useState(new Date());
 
     // Función que se ejecuta al presionar un checkbox específico
     const handleCheckboxPress = (index, isChecked) => {
@@ -33,6 +37,41 @@ export default function TrainingScreen(){
     const completedCount = exercisesCompleted.filter(completed => completed).length;
     const totalExercises = exercises.length;
     const progressPercentage = totalExercises > 0 ? (completedCount / totalExercises) * 100 : 0;
+
+    // Función para calcular duración en minutos
+    const calcularDuracion = () => {
+        const endTime = new Date();
+        const diffMs = endTime - startTime;
+        const diffMinutes = Math.floor(diffMs / 60000);
+        return diffMinutes;
+    };
+
+    // Función para finalizar rutina
+    const handleFinalizarRutina = () => {
+        const duracionMinutos = calcularDuracion();
+        
+        // Crear objeto con resumen del entrenamiento
+        const trainingSession = {
+            completado: progressPercentage === 100,
+            mensaje: progressPercentage === 100 ? "Buen trabajo 😎" : "Sigue así 💪",
+            duracionMinutos: duracionMinutos,
+            porcentajeCompletado: Math.round(progressPercentage),
+            enfoqueEntrenamiento: "Pierna", // Puedes hacer esto dinámico según el tipo de ejercicios
+            dia: nombreDia,
+            fecha: new Date().toLocaleDateString('es-MX'),
+            ejerciciosCompletados: completedCount,
+            ejerciciosTotales: totalExercises,
+            objetivo: rutina.goal
+        };
+
+        console.log("Sesión de entrenamiento:", trainingSession);
+
+        // Navegar a FinishTrainingLoadScreen con los datos
+        navegacion.navigate("FinishTrainingLoadScreen", { 
+            sessionData: trainingSession,
+            rutina: rutina 
+        });
+    };
 
     return(
         <View style={estilos.screen}>
@@ -75,7 +114,7 @@ export default function TrainingScreen(){
                 })}
             </ScrollView>
 
-            <TouchableOpacity style={estilos.btn}>
+            <TouchableOpacity style={estilos.btn} onPress={handleFinalizarRutina}>
                 <Text style={estilos.btnText}>Finalizar Rutina</Text>
             </TouchableOpacity>
 

@@ -158,11 +158,6 @@ export default function HomeScreen(){
                     {/* Botón para entrenar de nuevo */}
                     <TouchableOpacity 
                         style={estilos.btnCrear}
-                        onPress={() => {
-                            // Limpiar sessionData y volver al estado 2
-                            setSessionData(null);
-                            navegacion.setParams({ sessionData: null });
-                        }}
                     >
                         <Text style={estilos.btnCreartxt}>Entrenar de nuevo</Text>
                     </TouchableOpacity>

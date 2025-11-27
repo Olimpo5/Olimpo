@@ -20,11 +20,12 @@ export default function WorkoutScreen(){
         "Ejercicios de Brazo",
         "Ejercicios de Espalda",
         "Ejercicios de Pierna",
-        "Ekercicios de Bicep"
+        "Ejercicios de Bicep",
+        "Ejercicios de Tricep"
     ]
 
     return (
-        <View style={estilos.screen}>
+        <ScrollView style={estilos.screen}>
             <Text style={estilos.texto}>Lista de Ejercicios</Text>
 
             {/* Container ejercicios */}
@@ -42,7 +43,7 @@ export default function WorkoutScreen(){
                 
             </View> */}
 
-        </View>
+        </ScrollView>
     )
 }
 

@@ -69,7 +69,7 @@ export default function TabNavigator(){
                     tabBarInactiveTintColor: Colors.accent
                 }}
             /> 
-            <Tab.Screen 
+            {/* <Tab.Screen 
                 name="StatScreen" 
                 component={StatScreen} 
                 options={{
@@ -82,7 +82,7 @@ export default function TabNavigator(){
                     tabBarActiveTintColor: Colors.secondary,
                     tabBarInactiveTintColor: Colors.accent
                 }}
-            /> 
+            />  */}
             <Tab.Screen 
                 name="WorkoutScreen" 
                 component={WorkoutScreen} 

@@ -1,8 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import HomeScreen from "../screens/HomeScreen"
 import StatScreen from "../screens/StatScreen"
 import WorkoutScreen from "../screens/WorkoutScreen"
 import ChatScreen from "../screens/ChatScreen"
+import RoutineCreateGoal from "../screens/RoutineCreateGoal"
+import RoutineCreateFrequency from "../screens/RoutineCreateFrequency"
+import RoutineCreate from "../screens/RoutineCreate"
+import TrainingLoadScreen from "../screens/TrainingLoadScreen"
+import TrainingScreen from "../screens/TrainingScreen"
+import FinishTrainingLoadScreen from "../screens/FinishTrainingLoadScreen"
 import { Image, View } from "react-native"
 import Home from "../../assets/home.png"
 import Stat from "../../assets/stats.png"
@@ -11,8 +18,23 @@ import Chat from "../../assets/chat.png"
 
 import { Colors } from "../constants/theme"
 
-
 const Tab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
+
+// Stack Navigator para HomeScreen y sus pantallas relacionadas
+function HomeStack() {
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="RoutineCreateGoal" component={RoutineCreateGoal} />
+            <Stack.Screen name="RoutineCreateFrequency" component={RoutineCreateFrequency} />
+            <Stack.Screen name="RoutineCreate" component={RoutineCreate} />
+            <Stack.Screen name="TrainingLoadScreen" component={TrainingLoadScreen} />
+            <Stack.Screen name="TrainingScreen" component={TrainingScreen} />
+            <Stack.Screen name="FinishTrainingLoadScreen" component={FinishTrainingLoadScreen} />
+        </Stack.Navigator>
+    )
+}
 
 export default function TabNavigator(){
     // 1. Home
@@ -21,7 +43,7 @@ export default function TabNavigator(){
     // 4. Chat
     return(
         <Tab.Navigator 
-        initialRouteName="HomeScreen"
+        initialRouteName="HomeStack"
         screenOptions={{
             headerShown:false, 
             tabBarStyle:{
@@ -34,8 +56,8 @@ export default function TabNavigator(){
         tabBarShowLabel:false        
         }}>
             <Tab.Screen 
-                name="HomeScreen" 
-                component={HomeScreen} 
+                name="HomeStack" 
+                component={HomeStack} 
                 options={{
                     title: 'Home',
                     tabBarIcon: ({focused}) =>(

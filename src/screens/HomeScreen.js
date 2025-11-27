@@ -113,54 +113,45 @@ export default function HomeScreen(){
 
                 {/* Imagen de entrenamiento completado */}
                 <View style={estilos.rutinaContainer}>
-                    <Image 
-                        style={estilos.crearRutinaImagen} 
-                        source={{uri:"https://media.istockphoto.com/id/485298294/photo/gym-kettle-bell-with-chalk-and-hands.jpg?s=612x612&w=0&k=20&c=JwF8_VlohsAgsoSQsvdMZhxVW03-TmbtIiQk75yVQJQ="}}
-                    />
-
                     {/* Tarjeta de estadísticas del entrenamiento */}
                     <View style={estilos.statsCard}>
                         {/* Mensaje de felicitación */}
-                        <Text style={estilos.statsMessage}>{sessionData.mensaje}</Text>
-
+                        <View style={{backgroundColor:Colors.secondary, padding:20, borderRadius:20}}>
+                            <Text style={estilos.statsMessage}>{sessionData.mensaje}</Text>
+                        </View>
                         {/* Grid de estadísticas */}
-                        <View style={estilos.statsGrid}>
+                        <View style={{display:"flex", flexDirection:"row", gap:14, width:"100%"}}>
                             {/* Duración */}
-                            <View style={estilos.statItem}>
-                                <Text style={estilos.statValue}>{sessionData.duracionMinutos} min</Text>
-                                <Text style={estilos.statLabel}>Duración</Text>
+                            <View style={{backgroundColor:Colors.secondary, width:"50%", height:172, display:"flex", justifyContent:"center", borderRadius:15}}>
+                                <Text style={{alignSelf:"center", fontSize:60, color:Colors.fontColor}}>{sessionData.duracionMinutos}</Text>
+                                <Text style={{alignSelf:"center", color:Colors.fontColor}}>min Duración</Text>
                             </View>
 
                             {/* Porcentaje completado */}
-                            <View style={estilos.statItem}>
-                                <Text style={estilos.statValue}>{sessionData.porcentajeCompletado}%</Text>
-                                <Text style={estilos.statLabel}>Completado</Text>
-                            </View>
+                            <View style={{width:"46%", display:"flex", justifyContent:"space-between"}}>
+                                <View style={{height:78, backgroundColor:Colors.secondary, display:"flex", justifyContent:"center", borderRadius:15}}>
+                                    <Text style={{alignSelf:"center", fontSize:Fonts.size, color:Colors.fontColor}}>{sessionData.porcentajeCompletado}%</Text>
+                                    <Text style={{alignSelf:"center", color:Colors.fontColor}}>Completado</Text>
+                                </View>
 
-                            {/* Enfoque del entrenamiento */}
-                            <View style={estilos.statItem}>
-                                <Text style={estilos.statValue}>{sessionData.enfoqueEntrenamiento}</Text>
-                                <Text style={estilos.statLabel}>Enfoque</Text>
+                                {/* Enfoque del entrenamiento */}
+                                <View style={{height:78, backgroundColor:Colors.secondary, display:"flex", justifyContent:"center", borderRadius:15}}>
+                                    <Text style={{alignSelf:"center", color:Colors.fontColor}}>{sessionData.enfoqueEntrenamiento}</Text>
+                                    <Text style={{alignSelf:"center", color:Colors.fontColor}}>Enfoque</Text>
+                                </View>
                             </View>
                         </View>
 
                         {/* Información adicional */}
-                        <View style={estilos.additionalInfo}>
+                        {/* <View style={estilos.additionalInfo}>
                             <Text style={estilos.infoText}>
                                 {sessionData.ejerciciosCompletados} de {sessionData.ejerciciosTotales} ejercicios
                             </Text>
                             <Text style={estilos.infoText}>
                                 {sessionData.dia} • {sessionData.fecha}
                             </Text>
-                        </View>
+                        </View> */}
                     </View>
-
-                    {/* Botón para entrenar de nuevo */}
-                    <TouchableOpacity 
-                        style={estilos.btnCrear}
-                    >
-                        <Text style={estilos.btnCreartxt}>Entrenar de nuevo</Text>
-                    </TouchableOpacity>
                 </View>
 
                 {/* Botones de días de la semana */}
@@ -364,14 +355,12 @@ const estilos = StyleSheet.create({
     },
     // Estilos para la tarjeta de estadísticas (Estado 3)
     statsCard:{
-        backgroundColor: Colors.primary,
         borderRadius: 15,
-        padding: 20,
-        gap: 20
+        gap: 20,
     },
     statsMessage:{
-        color: Colors.secondary,
-        fontSize: 24,
+        color: Colors.fontColor,
+        fontSize: Fonts.size,
         fontWeight: "bold",
         textAlign: "center"
     },
@@ -382,7 +371,7 @@ const estilos = StyleSheet.create({
     },
     statItem:{
         alignItems: "center",
-        gap: 5
+        gap: 5,
     },
     statValue:{
         color: Colors.fontColor,

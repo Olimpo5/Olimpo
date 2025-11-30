@@ -108,7 +108,7 @@ export default function HomeScreen(){
                         style={estilos.image} 
                         source={{uri: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000"}}
                     />
-                    <Text style={estilos.txtusuario}>Hola Arturo</Text>
+                    <Text style={estilos.txtusuario}>Hola usuario</Text>
                 </View>
 
                 {/* Imagen de entrenamiento completado */}
@@ -219,7 +219,7 @@ export default function HomeScreen(){
                     style={estilos.image} 
                     source={{uri: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyZmlsfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000"}}
                 />
-                <Text style={estilos.txtusuario}>Hola Arturo</Text>
+                <Text style={estilos.txtusuario}>Hola usuario</Text>
             </View>
 
             {/* Imagen de entrenamiento */}

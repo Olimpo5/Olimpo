@@ -13,7 +13,8 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://10.0.2.2:8000/usuarios");
+      // const response = await fetch("http://10.0.2.2:8000/usuarios");
+      const response = await fetch("http://18.116.201.101:8000/usuarios");
       if (!response.ok) throw new Error("Error al obtener usuarios");
 
       const usuarios = await response.json();

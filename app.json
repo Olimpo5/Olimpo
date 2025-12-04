@@ -15,10 +15,17 @@
         "foregroundImage": "./assets/adaptative-icon.png",
         "backgroundColor": "#131313"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.luismujica024085.Olimpo",
+      "usesCleartextTraffic":true
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ee31f01d-2084-46c5-a3a0-df16a34fdae2"
+      }
     }
   }
 }

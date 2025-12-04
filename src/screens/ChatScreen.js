@@ -10,7 +10,8 @@ export default function ChatScreen() {
   const scrollViewRef = useRef();
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://10.0.2.2:8000/ws/chat");
+    // ws.current = new WebSocket("ws://10.0.2.2:8000/ws/chat");
+    ws.current = new WebSocket("ws://18.116.201.101:8000/ws/chat");
 
     ws.current.onopen = () => {
       appendMessage("Hola, en que puedo ayudarte", "bot");

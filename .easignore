@@ -1,0 +1,4 @@
+# .easignore
+# NO ignorar las carpetas nativas
+!android/
+!ios/
